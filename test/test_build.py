@@ -1,33 +1,39 @@
 from unittest import TestCase
+from linked_list import LinkedList, Node
 
 
 class TestBuild(TestCase):
-    #check whether the values are there
-    #check whether its number else false
-    #check the result is true
     def test_check_whether_the_values_are_there(self):
         try:
-            from build import build
+            from build import is_palindrome
         except ImportError:
-            self.assertFalse("Not defiend")
+            self.assertFalse("no function found")
 
-        result = build(None)
-        self.assertEqual(False,result)
+        linked_list = LinkedList()
+        self.assertEqual(is_palindrome(linked_list), False)
 
-    def test_check_whether_its_number_else_false(self):
-        try:
-            from build import build
-        except ImportError:
-            self.assertFalse("Not defiend")
+        print('Test: Single element list')
+        head = Node(1)
+        linked_list = LinkedList(head)
+        self.assertEqual(is_palindrome(linked_list), False)
 
-        result = build([])
-        self.assertEqual(False, result)
+        print('Test: Two element list, not a palindrome')
+        linked_list.append(2)
+        self.assertEqual(is_palindrome(linked_list), False)
 
-    def test_check_the_result_is_true(self):
-        try:
-            from build import build
-        except ImportError:
-            self.assertFalse("Not defiend")
+        print('Test: General case: Palindrome with even length')
+        head = Node('a')
+        linked_list = LinkedList(head)
+        linked_list.append('b')
+        linked_list.append('b')
+        linked_list.append('a')
+        self.assertEqual(is_palindrome(linked_list), True)
 
-        result = build([12,13,12])
-        self.assertTrue([12,13], result)
+        print('Test: General case: Palindrome with odd length')
+        head = Node(1)
+        linked_list = LinkedList(head)
+        linked_list.append(2)
+        linked_list.append(3)
+        linked_list.append(2)
+        linked_list.append(1)
+        self.assertEqual(is_palindrome(linked_list), True)
